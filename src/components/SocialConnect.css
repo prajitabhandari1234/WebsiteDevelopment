@@ -1,0 +1,66 @@
+/* ===== Purple hero background (like your second image) ===== */
+.questions-section{
+  padding: 96px 0 110px;
+  background:linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color:#fff;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.questions-section::before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:
+    radial-gradient(800px 360px at 15% 20%, rgba(255,255,255,.09), transparent 60%),
+    radial-gradient(600px 300px at 85% 80%, rgba(255,255,255,.08), transparent 60%);
+  pointer-events:none;
+}
+.questions-section .container{
+  position:relative; z-index:1; max-width:1100px; margin:0 auto; padding:0 24px;
+}
+.questions-section h3{
+  margin:0 0 12px; font-size:clamp(1.9rem,1.4vw + 1.3rem,2.6rem); font-weight:900;
+}
+.questions-section p{
+  margin:0 0 28px; font-size:1.15rem; opacity:.95;
+}
+
+/* row of buttons */
+.social-actions{
+  display:flex; flex-wrap:wrap; justify-content:center; gap:18px;
+}
+
+/* ===== Pill base ===== */
+.pill-btn{
+  display:inline-flex; align-items:center; gap:12px;
+  padding:14px 24px; min-height:52px; border-radius:999px;
+  font-weight:600; text-decoration:none; border:0;
+  transition: transform .15s ease, box-shadow .15s ease, background .15s ease, border-color .15s ease;
+}
+.pill-btn--lg{ padding:16px 28px; min-height:56px; font-size:1.05rem; }
+
+/* ===== Glass pill (unified look for all four) ===== */
+.pill-btn--glass{
+  background: linear-gradient(45deg,#ff6b6b,#ff8e53);
+  border: 1px solid rgba(255,255,255,.32);
+  color:#fff;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 28px rgba(0,0,0,.18);
+}
+.pill-btn--glass:hover{
+  transform: translateY(-2px);
+  border-color: rgba(255,255,255,.42);
+  box-shadow: 0 16px 36px rgba(0,0,0,.22);
+}
+.pill-btn--glass:active{ transform: translateY(0); }
+
+/* icons: white on glass pills */
+.pill-icon{
+  width:32px; height:22px; object-fit:contain; display:block; flex:0 0 22px;
+  filter: none;
+}
+
+
+@media (max-width:640px){
+  .pill-btn{ padding:12px 18px; min-height:48px; }
+}
