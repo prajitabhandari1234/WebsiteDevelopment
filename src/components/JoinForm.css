@@ -1,12 +1,15 @@
 /* =========================
    Join Form Styles Only
+   -------------------------
+   - Creates a standalone, branded form section with responsive layout.
 ========================= */
 
 .join-form-section {
-  padding: 84px 0;
-  background: rgba(255,255,255,.92);
+  padding: 84px 0; /* vertical breathing room */
+  background: rgba(255,255,255,.92); /* subtle off-white background for contrast */
 }
 
+/* Main form container with gradient border */
 .join-form-container {
   background: #fff;
   border-radius: 22px;
@@ -15,12 +18,18 @@
   max-width: 820px;
   box-shadow: 0 18px 60px rgba(0,0,0,.08);
   border: 2px solid transparent;
+  /* gradient border technique: */
   background-image: linear-gradient(#fff,#fff),
     linear-gradient(45deg, #ff6b6b, #4ecdc4);
   background-origin: border-box;
   background-clip: padding-box, border-box;
 }
 
+/* =========================
+   Form Header
+   -------------------------
+   - Title and subtitle at the top of the form.
+========================= */
 .form-header {
   text-align: center;
   margin-bottom: 26px;
@@ -28,8 +37,8 @@
 
 .form-header h2 {
   margin: 0 0 8px;
-  font-size: clamp(1.6rem, 1.6vw + 1rem, 2.2rem);
-  background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+  font-size: clamp(1.6rem, 1.6vw + 1rem, 2.2rem); /* responsive heading */
+  background: linear-gradient(45deg, #ff6b6b, #4ecdc4); /* gradient text effect */
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -37,10 +46,12 @@
 
 .form-header p {
   margin: 0;
-  color: #6b7280;
+  color: #6b7280; /* muted subtitle */
 }
 
-/* success + error banners */
+/* =========================
+   Success + Error Banners
+========================= */
 .success-message,
 .error-message {
   display: block;
@@ -62,7 +73,11 @@
   color: #7f1d1d;
 }
 
-/* hidden honeypot */
+/* =========================
+   Hidden Honeypot
+   -------------------------
+   - Anti-spam field hidden off-screen.
+========================= */
 .hp {
   position: absolute !important;
   left: -9999px !important;
@@ -70,11 +85,17 @@
   overflow: hidden;
 }
 
+/* =========================
+   Form Layout
+   -------------------------
+   - Grid gap between inputs for neat spacing.
+========================= */
 .join-form {
   display: grid;
   gap: 18px;
 }
 
+/* Group label + input */
 .form-group {
   display: block;
 }
@@ -87,6 +108,7 @@
   font-size: 0.95rem;
 }
 
+/* Inputs, selects, textareas share same style */
 .form-group input,
 .form-group select,
 .form-group textarea {
@@ -100,11 +122,13 @@
   transition: border-color .2s, box-shadow .2s, background .2s;
 }
 
+/* Larger textarea */
 .form-group textarea {
   min-height: 120px;
   resize: vertical;
 }
 
+/* Focus ring / highlight on active fields */
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
@@ -114,6 +138,7 @@
   box-shadow: 0 0 0 6px rgba(255,107,107,.15);
 }
 
+/* Character counter under textarea */
 .character-counter {
   font-size: 12px;
   color: #6b7280;
@@ -121,7 +146,11 @@
   margin-top: 6px;
 }
 
-/* Interests */
+/* =========================
+   Interests Grid
+   -------------------------
+   - Grid of checkbox items acting as selectable cards.
+========================= */
 .interest-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
@@ -148,7 +177,7 @@
 }
 
 .interest-item input[type="checkbox"] {
-  accent-color: #ff6b6b;
+  accent-color: #ff6b6b; /* modern checkbox tint */
   transform: scale(1.05);
 }
 
@@ -157,7 +186,11 @@
   border-color: #ff6b6b;
 }
 
-/* Submit Button */
+/* =========================
+   Submit Button
+   -------------------------
+   - Full-width, pill-shaped CTA.
+========================= */
 .join-submit-btn {
   width: 100%;
   border: 0;
@@ -186,17 +219,20 @@
   cursor: not-allowed;
 }
 
-/* Loading State */
+/* Loading State dims container and disables pointer events */
 .loading {
   opacity: .6;
   pointer-events: none;
 }
+
 .loading .join-submit-btn {
   background: linear-gradient(45deg, #bbb, #aaa);
   box-shadow: none;
 }
 
-/* Responsive */
+/* =========================
+   Responsive Adjustments
+========================= */
 @media (max-width: 768px) {
   .join-form-container {
     padding: 28px 22px;
@@ -212,7 +248,11 @@
   }
 }
 
-/* Accessibility */
+/* =========================
+   Accessibility
+   -------------------------
+   - Consistent focus outline for all form elements and links.
+========================= */
 button:focus,
 input:focus,
 select:focus,

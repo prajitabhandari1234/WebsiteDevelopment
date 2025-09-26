@@ -22,7 +22,7 @@ export default function BootcampModal({ open, onClose, onSubmit }) {
         </button>
 
         <h3 id="bootcampModalTitle" className="modal-title">
-          Bootcamp Application
+          Workshop Application
         </h3>
 
         <form

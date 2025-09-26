@@ -1,12 +1,13 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "../Styles/Home.css";
+import "../Styles/overall-style.css";
 import BootcampModal from "../components/BootCampForm";
 
 export default function Home() {
   const [isModalOpen, setModalOpen] = useState(false);
 
-  // Prevent body scroll when modal is open
+  // Prevent body scroll when the modal is open to avoid background jitter
   useEffect(() => {
     document.body.style.overflow = isModalOpen ? "hidden" : "";
     return () => (document.body.style.overflow = "");
@@ -14,7 +15,11 @@ export default function Home() {
 
   return (
     <>
-      {/* ===== CTA ===== */}
+      {/* ====================== CTA (Hero) ======================
+          - Left: introductory video (poster fallback)
+          - Right: headline, subtext, and primary CTAs
+          - Note: video source uses public path; ensure asset exists
+        ======================================================== */}
       <section className="cta-section" id="intro">
         <div className="container">
           <div className="cta-grid">
@@ -33,12 +38,15 @@ export default function Home() {
                 Ready to Start Your Innovation Journey?
               </div>
               <div className="cta-section-subtitle">
+                {/* Short value proposition for new members */}
                 Join a community where your ideas matter, your skills grow, and
                 your impact extends beyond the classroom. Whether you're a
                 beginner eager to learn or an experienced developer ready to
                 mentor others, there's a place for you in our innovative
                 ecosystem.
               </div>
+
+              {/* Primary page navigation CTAs */}
               <div className="cta-buttons">
                 <Link className="startup-cta primary" to="/join">
                   Become a Member
@@ -52,15 +60,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== About ===== */}
+      {/* ====================== About ===========================
+          - Intro card with two-column grid (copy + image)
+          - Highlights the club’s purpose and tone
+        ======================================================== */}
       <section className="about-section">
         <div className="container">
-          <h2 className="section-title">About CQU Initiation and Innovation</h2>
+          <h1 className="section-title">About CQU Initiation and Innovation</h1>
 
           <div className="club-introduction intro-card">
             <div className="intro-grid">
               <div className="intro-body">
-                <h1>Society for Computer Enthusiasts, by Computer Geeks</h1>
+                <h2>Society for Computer Enthusiasts, by Computer Geeks</h2>
                 <p className="intro-lead">
                   Welcome to Initiation & Innovation, a thriving community of
                   computer enthusiasts dedicated to learning, growing, and
@@ -74,6 +85,7 @@ export default function Home() {
                 </p>
               </div>
 
+              {/* Decorative/illustrative image; ensure the asset path is correct */}
               <figure className="intro-media">
                 <img
                   src="/images/bootcamp2.jpg"
@@ -84,8 +96,12 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Mission / Vision / Values */}
+          {/* ================== Mission / Vision / Values =========
+              - Three blocks: Mission, Vision (reversed layout), Values grid
+              - Keep copy concise and actionable
+            ====================================================== */}
           <div className="mission-vision-values">
+            {/* Mission */}
             <div className="mission-section mvv-card">
               <figure className="mvv-media">
                 <img
@@ -104,6 +120,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Vision (media on the right for desktop via .mvv-reverse) */}
             <div className="vision-section mvv-card mvv-reverse">
               <figure className="mvv-media">
                 <img
@@ -122,6 +139,7 @@ export default function Home() {
               </div>
             </div>
 
+            {/* Values: simple 4-up flexible grid */}
             <div className="values-section">
               <h3>Our Core Values</h3>
               <div className="values-grid">
@@ -151,7 +169,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Spotlight / Bootcamp ===== */}
+      {/* ================== Spotlight / Bootcamp =================
+          - Feature band with video demo and key bullet points
+          - CTA opens the Bootcamp application modal
+        ======================================================== */}
       <section className="feature-spotlight feature-bootcamp">
         <div className="container">
           <div className="feature-grid">
@@ -169,7 +190,7 @@ export default function Home() {
             </figure>
 
             <div className="feature-content">
-              <h2 className="section-title">Club Bootcamp: Build • Ship • Showcase</h2>
+              <h2 className="section-title">Club Workshop: Build • Ship • Showcase</h2>
               <p className="feature-subtitle">
                 In four weeks your team will scope, build, and demo a real
                 product—with mentorship, code reviews, and feedback along the
@@ -182,12 +203,13 @@ export default function Home() {
                 <li>Demo Day showcase</li>
               </ul>
 
+              {/* Modal trigger: keep state concerns minimal here */}
               <div className="feature-ctas">
                 <button
                   className="startup-cta primary"
                   onClick={() => setModalOpen(true)}
                 >
-                  Apply for Bootcamp
+                  Apply for Workshop
                 </button>
               </div>
             </div>
@@ -195,7 +217,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ===== Bootcamp Modal (separate component) ===== */}
+      {/* ================== Bootcamp Modal Component =============
+          - Isolated UI for application form
+          - Passes open/close state and a placeholder submit handler
+        ======================================================== */}
       <BootcampModal
         open={isModalOpen}
         onClose={() => setModalOpen(false)}

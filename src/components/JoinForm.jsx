@@ -1,6 +1,14 @@
+// src/components/JoinForm.jsx
 import { useEffect, useMemo, useState } from "react";
 import "./JoinForm.css";
 
+/**
+ * JoinForm
+ * - A fully responsive, branded application form with validation, interest selection,
+ *   and localStorage to prevent duplicate submissions.
+ * - Honeypot field used for spam protection.
+ * - Includes success and error banners.
+ */
 const INTERESTS = [
   { value: "ai-ml", label: "AI/Machine Learning" },
   { value: "web-dev", label: "Web Development" },
@@ -10,37 +18,45 @@ const INTERESTS = [
   { value: "design", label: "UI/UX Design" },
 ];
 
-const STORAGE_KEY = "cqu_join_submissions"; // stores an array of submitted emails (lowercased)
+const STORAGE_KEY = "cqu_join_submissions";
 
 export default function JoinForm() {
+  // Controlled input states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [major, setMajor] = useState("");
+  const [location, setLocation] = useState("");
   const [about, setAbout] = useState("");
   const [interests, setInterests] = useState([]);
+
+  // Submission states
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
 
-  // Honeypot (bots fill this, humans don't see it)
+  // Honeypot field (hidden); bots may fill it in
   const [nickname, setNickname] = useState("");
 
+  // Derived state: character count for about textarea
   const charCount = useMemo(() => about.length, [about]);
   const maxChars = 500;
 
+  // Focus first field on mount
   useEffect(() => {
     document.getElementById("name")?.focus();
   }, []);
 
+  // Toggle interest selection
   const toggleInterest = (val) => {
     setInterests((prev) =>
       prev.includes(val) ? prev.filter((v) => v !== val) : [...prev, val]
     );
   };
 
+  // Simple email validation
   const validateEmail = (value) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
 
-  // helpers for localStorage
+  // Retrieve and store emails in localStorage to prevent duplicates
   const getSavedEmails = () => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY);
@@ -63,57 +79,63 @@ export default function JoinForm() {
     }
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
 
-    // simple validation
+    // Client-side validation
     const errs = [];
     if (!name || name.trim().length < 2) errs.push("Please enter a valid name.");
     if (!email || !validateEmail(email)) errs.push("Please enter a valid email address.");
     if (!major) errs.push("Please select your major.");
+    if (!location) errs.push("Please select your location.");
 
-    // honeypot check
+    // Honeypot triggered
     if (nickname.trim()) {
       errs.push("Submission flagged. Please try again.");
     }
 
-    // block duplicate by email (case-insensitive)
+    // Duplicate prevention
     const normalizedEmail = (email || "").trim().toLowerCase();
     const already = getSavedEmails().includes(normalizedEmail);
     if (already) {
       errs.push("This email has already submitted the form. We’ll be in touch soon!");
     }
 
+    // Stop submission if errors
     if (errs.length) {
       setError(errs.join(" "));
       return;
     }
 
-    const payload = { name, email: normalizedEmail, major, interests, about };
+    // Compose payload (would send to API)
+    const payload = {
+      name,
+      email: normalizedEmail,
+      major,
+      location,
+      interests,
+      about,
+    };
     console.log("Form data:", payload);
 
+    // Simulate network submission
     try {
       setLoading(true);
-
-      // TODO: replace with your real API call
-      // await fetch('/api/join', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-
-      await new Promise((r) => setTimeout(r, 1200));
-
-      // mark email as used
+      await new Promise((r) => setTimeout(r, 1200)); // simulate delay
       saveEmail(normalizedEmail);
 
+      // Show success and reset form
       setSuccess(true);
-      // reset visible fields
       setName("");
       setEmail("");
       setMajor("");
+      setLocation("");
       setInterests([]);
       setAbout("");
       setNickname("");
 
-      // hide success after 5s
       setTimeout(() => setSuccess(false), 5000);
     } catch (err) {
       console.error(err);
@@ -132,6 +154,7 @@ export default function JoinForm() {
             <p>Fill out this application and we'll connect you with our innovation community</p>
           </div>
 
+          {/* Show success or error banners */}
           {success && (
             <div className="success-message" role="status">
               🎉 Welcome to CQU Innovation! We'll be in touch within 24 hours.
@@ -144,9 +167,16 @@ export default function JoinForm() {
             </div>
           )}
 
-          <form className="join-form" id="joinForm" onSubmit={handleSubmit} noValidate>
-            {/* Honeypot field (hidden) */}
-            <div className="hp">
+          {/* Main form */}
+          <form
+            className="join-form"
+            id="joinForm"
+            onSubmit={handleSubmit}
+            noValidate
+            autoComplete="on"
+          >
+            {/* Honeypot field (hidden from users) */}
+            <div className="hp" aria-hidden="true">
               <label htmlFor="nickname">Nickname</label>
               <input
                 id="nickname"
@@ -159,6 +189,7 @@ export default function JoinForm() {
               />
             </div>
 
+            {/* Controlled input fields */}
             <div className="form-group">
               <label htmlFor="name">Full Name *</label>
               <input
@@ -169,6 +200,7 @@ export default function JoinForm() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 required
+                autoComplete="name"
               />
             </div>
 
@@ -178,13 +210,16 @@ export default function JoinForm() {
                 id="email"
                 name="email"
                 type="email"
-                placeholder="your.email@university.edu"
+                placeholder="abcd@cqumail.com.au"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                autoComplete="email"
+                inputMode="email"
               />
             </div>
 
+            {/* Academic major select */}
             <div className="form-group">
               <label htmlFor="major">Academic Major *</label>
               <select
@@ -207,6 +242,28 @@ export default function JoinForm() {
               </select>
             </div>
 
+            {/* Location select */}
+            <div className="form-group">
+              <label htmlFor="location">Preferred Location *</label>
+              <select
+                id="location"
+                name="location"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+                required
+                autoComplete="address-level2" // city/suburb
+              >
+                <option value="">Select your location</option>
+                <option value="sydney">Sydney</option>
+                <option value="melbourne">Melbourne</option>
+                <option value="rockhampton">Rockhampton</option>
+                <option value="brisbane">Brisbane</option>
+                <option value="cairns">Cairns</option>
+                <option value="adelaide">Adelaide</option>
+              </select>
+            </div>
+
+            {/* Interests checkboxes grid */}
             <div className="form-group">
               <label>Areas of Interest</label>
               <div className="interest-grid">
@@ -231,6 +288,7 @@ export default function JoinForm() {
               </div>
             </div>
 
+            {/* About textarea with character counter */}
             <div className="form-group">
               <label htmlFor="about">Tell Us About Yourself</label>
               <textarea
@@ -241,12 +299,14 @@ export default function JoinForm() {
                 value={about}
                 maxLength={maxChars}
                 onChange={(e) => setAbout(e.target.value)}
+                autoComplete="on"
               />
               <div className="character-counter">
                 {charCount} / {maxChars} characters
               </div>
             </div>
 
+            {/* Submit button */}
             <button type="submit" className="join-submit-btn" id="submitBtn" disabled={loading}>
               {loading ? "Submitting..." : "Join CQU Innovation Community"}
             </button>
