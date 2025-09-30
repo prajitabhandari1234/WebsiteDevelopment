@@ -1,0 +1,17 @@
+[project]
+name = "cqu-backend"
+version = "0.0.0"
+description = "Backend APIs for CQU club site"
+authors = [
+    {name = "Prabeg Shakya",email = "shakyaprabeg@gmail.com"}
+]
+license = {text = "ISC"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
