@@ -9,5 +9,5 @@ app = FastAPI()
 async def health(session = Depends(get_db_session)):    
     stmt = text("select 'healthy'")
 
-    result = await session.execute(stmt)
+    result = session.execute(stmt)
     return {"status": result.scalar()}

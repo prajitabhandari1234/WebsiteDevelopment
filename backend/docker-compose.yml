@@ -1,5 +1,5 @@
-nnetworks:
-  beniya:
+networks:
+  cqu:
     driver: bridge
 
 volumes:
