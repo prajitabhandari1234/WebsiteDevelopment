@@ -8,6 +8,7 @@ class DatabaseSettings(BaseModel):
     host: str
     port: int
     database: str
+    pgschema: str
     username: str
     password: str
 
