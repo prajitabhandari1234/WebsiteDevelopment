@@ -8,12 +8,7 @@ from sqlalchemy import (
     MetaData,
     func,
 )
-from sqlalchemy.orm import (
-    DeclarativeBase,
-    Mapped,
-    declared_attr,
-    mapped_column
-)
+from sqlalchemy.orm import DeclarativeBase, Mapped, declared_attr, mapped_column
 
 from src.config import settings
 
@@ -29,8 +24,7 @@ constraint_naming_conventions = {
 
 class Base(DeclarativeBase):
     metadata = MetaData(
-        naming_convention=constraint_naming_conventions,
-        schema=settings.db.pgschema
+        naming_convention=constraint_naming_conventions, schema=settings.db.pgschema
     )
 
     @declared_attr.directive

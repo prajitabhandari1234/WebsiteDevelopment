@@ -8,7 +8,7 @@ from sqlalchemy import (
 )
 from sqlalchemy.orm import Session, sessionmaker
 
-from config.settings import settings
+from src.config import settings
 
 
 class DatabaseSessionManager:
@@ -20,10 +20,10 @@ class DatabaseSessionManager:
     def connect(self) -> Iterator[Connection]:
         if self._engine is None:
             raise Exception("DatabaseSessionManager not initialized")
-        
-        with self._engine.begin() as conn: # reserving a lane (transaction)
+
+        with self._engine.begin() as conn:  # reserving a lane (transaction)
             try:
-                yield conn # temporarily a private lane
+                yield conn  # temporarily a private lane
             except Exception:
                 conn.rollback()
                 raise
@@ -35,7 +35,7 @@ class DatabaseSessionManager:
 
         if self._sessionmaker is None:
             raise
-        
+
         session = self._sessionmaker()
 
         try:
@@ -58,6 +58,8 @@ class DatabaseSessionManager:
 
 sessionmanager = DatabaseSessionManager(settings.db.url)
 
+
+@contextmanager
 def get_db_session():
     with sessionmanager.session() as session:
         yield session
