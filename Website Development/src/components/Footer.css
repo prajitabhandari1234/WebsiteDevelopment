@@ -1,0 +1,158 @@
+/* =========================
+   Footer Base Styles
+   -------------------------
+   - Dark background matches header.
+   - White text + accent color for hover states.
+========================= */
+.startup-footer {
+  background: #2c2c2c;  /* Dark footer background */
+  color: #fff;
+}
+
+/* =========================
+   Footer Layout (Desktop)
+   -------------------------
+   - Flex containers to create three evenly spaced columns.
+   - Max width centers the content.
+========================= */
+.startup-footer-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 40px 50px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* Group for all columns */
+.startup-footer-section {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  gap: 80px; /* spacing between columns */
+}
+
+/* Each column: vertically stacked links */
+.footer-column {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center-align text on desktop */
+  text-align: center;
+  flex: 1;
+}
+
+/* =========================
+   Column Headings
+   -------------------------
+   - Slight shadow adds depth to headings.
+========================= */
+.footer-column h3 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+}
+
+/* =========================
+   Contact Email Link
+   -------------------------
+   - Subtle color, highlight on hover.
+========================= */
+.footer-email {
+  font-size: 16px;
+  color: #e0e0e0;
+  margin-bottom: 8px;
+  text-decoration: none;
+  transition: .3s;
+}
+
+.footer-email:hover {
+  color: #ff6b6b; /* brand accent */
+  text-shadow: 0 0 8px rgba(255, 107, 107, .5);
+}
+
+/* =========================
+   Footer Links
+   -------------------------
+   - Consistent style for all footer navigation links.
+========================= */
+.footer-link {
+  color: #e0e0e0;
+  text-decoration: none;
+  font-size: 14px;
+  margin: 4px 0;
+  transition: .3s;
+  display: block;
+}
+
+.footer-link:hover {
+  color: #ff6b6b;
+  text-shadow: 0 0 8px rgba(255, 107, 107, .5);
+  transform: translateY(-1px); /* subtle lift on hover */
+}
+
+/* =========================
+   Bottom Bar
+   -------------------------
+   - Separate area for motto and legal text.
+========================= */
+.footer-bottom {
+  background: rgba(0, 0, 0, .3); /* lighter overlay on dark bg */
+  border-top: 1px solid rgba(255, 255, 255, .1);
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer-motto {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.footer-motto p {
+  margin: 5px 0;
+  font-size: 14px;
+  color: #e0e0e0;
+}
+
+.footer-motto p:first-child {
+  font-style: italic;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, .3);
+}
+
+/* =========================
+   Responsive Adjustments
+   -------------------------
+   - Stack columns vertically and shrink fonts on tablets/phones.
+========================= */
+@media (max-width: 992px) {
+  .startup-footer-content {
+    padding: 25px 20px;
+  }
+
+  .startup-footer-section {
+    flex-direction: column; /* stack columns */
+    gap: 30px;
+    align-items: center;
+  }
+
+  .footer-column {
+    width: 100%; /* full width columns */
+  }
+
+  .footer-column h3 {
+    font-size: 16px;
+  }
+
+  .footer-email {
+    font-size: 14px;
+  }
+
+  .footer-link {
+    font-size: 12px;
+  }
+}

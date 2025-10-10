@@ -1,0 +1,156 @@
+:root {
+  --header-h: 72px; /* Set to your real header height for scroll offset calculations. */
+}
+
+/* Keep the interest-item selection style consistent across pages. */
+.interest-item.selected {
+  background: linear-gradient(135deg, rgba(255,107,107,.1), rgba(76,205,196,.1));
+  border-color: #ff6b6b;
+}
+
+/* =========================
+   Hero Section (CTA)
+   — structure only; colors via override_theme.css
+========================= */
+.cta-section {
+  padding: 80px 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+/* Professional About heading (Home page only) */
+.offerings-section .section-title{
+  text-align: center;               /* change to center if you prefer */
+  margin: 0 0 20px;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 1.4vw + 1.2rem, 2.5rem);
+  line-height: 1.2;
+  color: var(--brand-ink);
+  text-shadow: none;              /* ensure no thick outline */
+}
+
+.offerings-section .section-title::after{
+  content: none;
+  display: block;
+  width: 72px;                    /* subtle accent */
+  height: 4px;
+  margin-top: 10px;
+  border-radius: 999px;
+  background: var(--brand-btn);   /* dark green brand accent */
+}
+/* Remove the dotted overlay on the lime hero for a clean look (left as-is) */
+.cta-section::before { content: none; }
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Badge above the headline: colors via override_theme.css */
+.hero-badge {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 50px;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border: 0;
+}
+
+.cta-section-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 20px;
+  position: relative;
+  animation: slideInDown 1s ease-out;
+}
+
+.cta-section-subtitle {
+  font-size: 1.3rem;
+  opacity: .95;
+  margin-bottom: 40px;
+  position: relative;
+  animation: slideInUp 1s ease-out;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
+}
+
+/* =========================
+   Hero Stats (if used)
+========================= */
+.hero-stats {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.hero-stat { text-align: center; }
+.hero-stat-number {
+  display: block;
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+.hero-stat-label { font-size: 14px; opacity: 0.85; }
+
+/* =========================
+   Site-wide CTA buttons — colors via override_theme.css
+========================= */
+.startup-cta {
+  padding: 14px 28px;
+  border-radius: 30px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: .3s;
+  border: 0;
+  cursor: pointer;
+  box-shadow: 0 8px 25px rgba(0,0,0,.2);
+}
+.startup-cta.primary { }
+.startup-cta.secondary { border: 0; backdrop-filter: none; }
+.startup-cta:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(0,0,0,.3); }
+
+/* =========================
+   Animations for Hero
+========================= */
+@keyframes slideInDown {
+  0% { transform: translateY(-50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideInUp {
+  0% { transform: translateY(50px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Offerings (unchanged) */
+.offerings-section { padding: 80px 0; }
+.offerings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(300px,1fr));
+  gap: 30px;
+  margin-top: 40px;
+}
+.offering-card {
+  background:#fff;
+  padding:35px 25px;
+  border-radius:20px;
+  text-align:center;
+  box-shadow:0 8px 25px rgba(0,0,0,.1);
+  border-top:4px solid transparent;
+}
+.offering-card:nth-child(1){ border-top-color:#ff6b6b; }
+.offering-card:nth-child(2){ border-top-color:#4ecdc4; }
+.offering-card:nth-child(3){ border-top-color:#45b7d1; }
+.offering-card:nth-child(4){ border-top-color:#96ceb4; }
+.offering-card:nth-child(5){ border-top-color:#feca57; }
+.offering-card:nth-child(6){ border-top-color:#ff6b6b; }
+.offering-icon { font-size:3rem; margin-bottom:20px; }
+.offering-card h3 { color:#2c3e50; margin-bottom:15px; font-size:1.5rem; }
+.offering-card p { color:#2c3e50; line-height:1.7; font-size:1.1rem; }
