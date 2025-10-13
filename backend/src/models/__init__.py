@@ -5,6 +5,7 @@ from .base import Base
 # from .event import Event
 # from .member import Member
 from .project import Project
+from .project_category import ProjectCategory
 
 # from .rating import Rating
 
@@ -16,5 +17,6 @@ __all__ = [
     # "Event",
     # "Member",
     "Project",
+    "ProjectCategory",
     # "Rating",
 ]

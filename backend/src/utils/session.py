@@ -59,7 +59,6 @@ class DatabaseSessionManager:
 sessionmanager = DatabaseSessionManager(settings.db.url)
 
 
-@contextmanager
 def get_db_session():
     with sessionmanager.session() as session:
         yield session

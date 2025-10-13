@@ -1,5 +1,59 @@
 [
-    {
-
-    }
+  {
+    "title": "Website Development",
+    "description": "Modern, responsive websites with secure backends and sleek UI. Optimized performance and seamless experiences.",
+    "category": "web",
+    "status": "ongoing",
+    "tags": ["HTML", "CSS", "JavaScript", "Node.js"],
+    "github_link": "https://github.com/prajitabhandari1234/WebsiteDevelopment"
+  },
+  {
+    "title": "Hackathon Sign-up Portal",
+    "description": "Registration + team formation with schedule & leaderboard.",
+    "category": "web",
+    "status": "planned",
+    "tags": ["React", "Express", "MongoDB"]
+  },
+  {
+    "title": "Raspberry Pi Joystick Integration",
+    "description": "Controller interface for robotics with joystick integration and face recognition via GPIO and USB.",
+    "category": "raspberry-pi",
+    "status": "completed",
+    "tags": ["Raspberry Pi", "Python", "C++", "Robotics"]
+  },
+  {
+    "title": "IoT Smart Energy Monitor",
+    "description": "Track usage, visualize trends, and suggest cost cuts.",
+    "category": "raspberry-pi",
+    "status": "planned",
+    "tags": ["Raspberry Pi", "Python", "MQTT"]
+  },
+  {
+    "title": "Mini Game",
+    "description": "Fun browser-based games with engaging mechanics and smooth controls. Quick sessions across devices.",
+    "category": "games",
+    "status": "completed",
+    "tags": ["Java", "CSS", "JavaScript", "UI/UX"]
+  },
+  {
+    "title": "Campus Networking Lab",
+    "description": "Router & VLAN lab; packet captures and topology docs.",
+    "category": "networking",
+    "status": "planned",
+    "tags": ["Cisco", "VLAN", "Wireshark"]
+  },
+  {
+    "title": "AI Customer Support Chatbot",
+    "description": "NLP assistant for real-time query handling with domain knowledge.",
+    "category": "more",
+    "status": "planned",
+    "tags": ["Python", "FastAPI", "Transformers"]
+  },
+  {
+    "title": "AI-Powered Resume Analyzer",
+    "description": "Matches resumes to job ads, scores keywords, and gives instant feedback.",
+    "category": "more",
+    "status": "planned",
+    "tags": ["Python", "NLP"]
+  }
 ]

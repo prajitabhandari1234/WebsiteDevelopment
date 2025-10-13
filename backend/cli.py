@@ -3,7 +3,7 @@ from typer import Typer
 
 import database.seeders as seeders
 
-from src.utils import get_db_session
+from src.utils.session import sessionmanager
 
 
 cli = Typer()
@@ -11,7 +11,7 @@ cli = Typer()
 
 @cli.command()
 def seed():
-    with get_db_session() as session:
+    with sessionmanager.session() as session:
         for seeder in seeders.__all__:
             seeder_cls = getattr(seeders, seeder)
 
