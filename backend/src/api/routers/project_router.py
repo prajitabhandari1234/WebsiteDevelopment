@@ -9,14 +9,10 @@ from src.utils import get_db_session
 
 project_router = APIRouter(prefix="/projects", tags=["Project"])
 
+
 @project_router.get(
     "",
     status_code=status.HTTP_200_OK,
 )
-def fetch_projects(
-    session: Annotated[Session, Depends(get_db_session)]
-):
-    return session.scalars(
-        select(Project)
-            .options(joinedload(Project.category))
-    ).all()
+def fetch_projects(session: Annotated[Session, Depends(get_db_session)]):
+    return session.scalars(select(Project).options(joinedload(Project.category))).all()

@@ -1,7 +1,7 @@
 from logging.config import fileConfig
 
 from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+from sqlalchemy import pool, text
 
 from alembic import context
 
@@ -70,13 +70,17 @@ def run_migrations_online() -> None:
     )
 
     with connectable.connect() as connection:
+        connection.execute(text('SET search_path TO "%s"' % settings.db.pgschema))
+        connection.commit()
+
+        connection.dialect.default_schema_name = settings.db.pgschema
+
         context.configure(
             connection=connection,
             target_metadata=target_metadata,
         )
 
         with context.begin_transaction():
-            context.execute(f"SET search_path TO {settings.db.pgschema}")
             context.run_migrations()
 
 

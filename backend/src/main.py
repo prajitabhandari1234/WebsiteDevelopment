@@ -8,6 +8,7 @@ app = FastAPI()
 
 app.include_router(project_router)
 
+
 @app.get("/health")
 async def health(session=Depends(get_db_session)):
     stmt = text("select 'healthy'")

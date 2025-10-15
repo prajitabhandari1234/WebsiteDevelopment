@@ -9,9 +9,11 @@ from .base_seeder import BaseSeeder
 
 class ProjectSeeder(BaseSeeder):
     def run(self):
-        with open(file="database/seeders/fixtures/projects.json", mode="r", encoding="utf-8") as f:
+        with open(
+            file="database/seeders/fixtures/projects.json", mode="r", encoding="utf-8"
+        ) as f:
             projects_data = json.load(f)
-        
+
         categories = self._session.scalars(select(ProjectCategory)).all()
         category_map = {cat.name: cat.id for cat in categories}
 
@@ -24,8 +26,7 @@ class ProjectSeeder(BaseSeeder):
                 status=project.get("status"),
                 demo_link=project.get("demo_link", None),
                 github_link=project.get("github_link", None),
-                category_id=category_map[project["category"]]
-
+                category_id=category_map[project["category"]],
             )
             for project in projects_data
         ]

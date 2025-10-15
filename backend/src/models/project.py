@@ -14,7 +14,8 @@ class Project(BaseModel):
     github_link: Mapped[str] = mapped_column(String, nullable=True)
     category_id: Mapped[int] = mapped_column(
         ForeignKey("cqu_schema.project_categories.id", ondelete="SET NULL"),
-        nullable=True
+        nullable=True,
     )
 
-    category: Mapped["ProjectCategory"] = relationship(back_populates="projects") 
+    # relationships
+    category: Mapped["ProjectCategory"] = relationship(back_populates="projects")

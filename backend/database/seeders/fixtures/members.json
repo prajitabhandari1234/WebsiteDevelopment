@@ -1,0 +1,92 @@
+[
+    {
+        "name": "Sahisa Sunuwar",
+        "role": "President",
+        "email": "sahisa.sunuwar@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/sahisa-sunuwar-6506a4212/",
+        "avatar": "public/images/team/sahisa_sunuwar.jpg",
+        "bio": "As the President of the CQUniversity Initiation & Innovation Computer Club, I am dedicated to fostering a community where creativity, technology, and collaboration come together. My role is to guide our club's vision-supporting students in exploring emerging technologies, working on hands-on projects, and building real-world skills that extend beyond the classroom.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Loojaw Manandhar",
+        "role": "Vice President",
+        "email": "loojaw.manandhar@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/loojaw-manandhar-665326363/",
+        "avatar": "public/images/team/loojaw_manandhar.jpg",
+        "bio": "I am Loojaw Manandhar, pursuing a Bachelor of IT and serving as IT Club Vice President. I support executive leadership and facilitate organizational operations. My responsibilities include assisting with strategic planning, coordinating events, and supervising committee functions. I collaborate with the executive team on policy development and member engagement programs. I also lead meetings when needed, manage project implementation, and ensure effective communication between leadership and members to maintain operational excellence.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Jatin Shrestha",
+        "role": "Vice President",
+        "email": "jatin.shrestha@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/jatin-s-70443b13a/",
+        "avatar": "public/images/team/jatin_shrestha.jpg",
+        "bio": "I am Jatin Shrestha, pursuing a Bachelor of IT and serving as IT Club Vice President. I support executive leadership and facilitate organizational operations. My responsibilities include assisting with strategic planning, coordinating events, and supervising committee functions. I collaborate with the executive team on policy development and member engagement programs. I also lead meetings when needed, manage project implementation, and ensure effective communication between leadership and members to maintain operational excellence.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Prajita Bhandari",
+        "role": "Treasurer",
+        "email": "prajita.bhandari@cqumail.com",
+        "linkedin": "https://www.linkedin.com/",
+        "avatar": "public/images/team/prajita_bhandari.jpg",
+        "bio": "As the Treasurer of the CQUniversity Initiation & Innovation Computer Club, I am committed to ensuring the financial health and sustainability of our initiatives. My role focuses on managing budgets, securing resources, and maintaining transparent financial practices—empowering our club to support innovative projects, organize impactful events, and provide opportunities for students to grow their skills beyond the classroom.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Tahnik Khan",
+        "role": "Secretary",
+        "email": "tahnik.khan@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/tahnik92345/",
+        "avatar": "public/images/team/tahnik_khan.jpg",
+        "bio": "Hello, I'm Tahnik Khan, a Bachelor of IT student and secretary of the IT Club. I ensure effective communication and maintain accurate records for our organization. My responsibilities include managing official documents, recording meeting minutes, and organizing records on our Teams channel. I collaborate with the president and vice president to notify members of meetings, events, and deadlines. I also assist with meeting agenda preparation and ensure timely, clear communication of important information.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Sahil Shrestha",
+        "role": "Marketing Team",
+        "email": "sahil.basnet@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/sahil-basnet-2a6071306?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app ",
+        "avatar": "public/images/team/sahil_shrestha.jpg",
+        "bio": "I’m Sahil Basnet, a member of the CQinitiation Marketing Team and a Bachelor of Information Technology student majoring in Cybersecurity at Central Queensland University. I have a strong interest in network security, ethical hacking, and cloud security. Alongside my studies, I contribute to digital marketing and outreach efforts at CQinitiation, where I help promote student engagement and awareness.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Neha Thanait",
+        "role": "Marketing Team",
+        "email": "neha.thanait@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/neha-thanait-b58b5b270?trk=contact-info ",
+        "avatar": "public/images/team/neha_thanait.jpg",
+        "bio": "I’m Neha Thanait, currently pursuing a Bachelor of Information Technology with a major in Cybersecurity at Central Queensland University. My interests lie in penetration testing, digital forensics, and cloud security, where I enjoy exploring practical ways to strengthen systems against evolving cyber threats. I’m motivated to expand my skills through projects, research, and collaboration, with the goal of building a career that contributes to a safer digital world.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Prasuna Shrestha",
+        "role": "Marketing Team",
+        "email": "prasuna.shrestha@cqumail.com",
+        "linkedin": "https://www.linkedin.com/in/prasuna-stha-9ba029324?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app",
+        "avatar": "public/images/team/prasuna_shrestha.jpg",
+        "bio": "Storytelling and event promotion.",
+        "location": "Sydney"
+    },
+    {
+        "name": "Anshul Bairy",
+        "role": "President",
+        "email": "anshul.bairy@cqumail.com",
+        "linkedin": "",
+        "avatar": "public/images/team/anshul_bairy.jpg",
+        "bio": "",
+        "location": "Rockhampton"
+      },
+    {
+        "name": "Ben Woods",
+        "role": "President",
+        "email": "ben.woods@cqumail.com",
+        "linkedin": "",
+        "avatar": "public/images/team/ben_woods.jpg",
+        "bio": "",
+        "location": "Rockhampton"
+    }
+]
