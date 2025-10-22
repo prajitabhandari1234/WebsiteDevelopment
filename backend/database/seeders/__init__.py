@@ -1,10 +1,10 @@
-from .project_category_seeder import ProjectCategorySeeder
-from .project_seeder import ProjectSeeder
+from .event_seeder import EventSeeder
 from .member_seeder import MemberSeeder
+from .project_seeder import ProjectSeeder
 
 
 __all__ = [
-    "ProjectCategorySeeder",
     "ProjectSeeder",
     "MemberSeeder",
+    "EventSeeder",
 ]

@@ -1,8 +1,8 @@
-"""create_projects_table
+"""create_projects_migrations
 
-Revision ID: 7aa60b9cb17a
+Revision ID: 5b8f8d30fdfc
 Revises:
-Create Date: 2025-10-12 18:53:55.132003
+Create Date: 2025-10-22 08:49:21.791490
 
 """
 
@@ -13,7 +13,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = "7aa60b9cb17a"
+revision: str = "5b8f8d30fdfc"
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -60,6 +60,7 @@ def upgrade() -> None:
             ondelete="SET NULL",
         ),
         sa.PrimaryKeyConstraint("id", name=op.f("pk_projects")),
+        sa.UniqueConstraint("title", name=op.f("uq_projects_title")),
         schema="cqu_schema",
     )
     # ### end Alembic commands ###

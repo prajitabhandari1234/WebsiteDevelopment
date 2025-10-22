@@ -3,7 +3,7 @@ import json
 from sqlalchemy import select
 from sqlalchemy.dialects.postgresql import insert
 
-from src.models import Location, Member, Role
+from src.models import Campus, Member, Role
 
 from .base_seeder import BaseSeeder
 
@@ -17,28 +17,30 @@ class MemberSeeder(BaseSeeder):
 
         # Seed Roles
         roles = {member["role"] for member in members_data}
-        existing_roles = self._session.scalars(select(Role.name)).all()
-        roles_to_add = roles - set(existing_roles)
-        role_data = [Role(name=role) for role in roles_to_add]
-        self._session.add_all(role_data)
-        self._session.commit()
-        print(f"✅ Seeded {len(roles_to_add)} roles")
+        role_insert_stmt = insert(Role).values([{"name": role} for role in roles])
+        role_do_nothing_stmt = role_insert_stmt.on_conflict_do_nothing(
+            index_elements=["name"]
+        )
+        self._session.execute(role_do_nothing_stmt)
+        print(f"✅ Upserted {len(roles)} roles")
 
-        # Seed Locations
-        locations = {member.get("location", "Rockhampton") for member in members_data}
-        existing_locations = self._session.scalars(select(Location.name)).all()
-        locations_to_add = locations - set(existing_locations)
-        location_data = [Location(name=location) for location in locations_to_add]
-        self._session.add_all(location_data)
-        self._session.commit()
-        print(f"✅ Seeded {len(locations_to_add)} locations")
+        # Seed Campuses
+        campuses = {member.get("campus", "Rockhampton") for member in members_data}
+        campus_insert_stmt = insert(Campus).values(
+            [{"name": campus} for campus in campuses]
+        )
+        campus_do_nothing_stmt = campus_insert_stmt.on_conflict_do_nothing(
+            index_elements=["name"]
+        )
+        self._session.execute(campus_do_nothing_stmt)
+        print(f"✅ Upserted {len(campuses)} campuses")
 
-        # Get Role and Location maps
+        # Get Role and Campus maps
         db_roles = self._session.scalars(select(Role)).all()
         role_map = {role.name: role.id for role in db_roles}
 
-        db_locations = self._session.scalars(select(Location)).all()
-        location_map = {location.name: location.id for location in db_locations}
+        db_campuses = self._session.scalars(select(Campus)).all()
+        campus_map = {campus.name: campus.id for campus in db_campuses}
 
         # Seed members
         members_to_upsert = []
@@ -51,9 +53,7 @@ class MemberSeeder(BaseSeeder):
                     "linkedin": member_data.get("linkedin", None),
                     "avatar": member_data.get("avatar", None),
                     "bio": member_data.get("bio", None),
-                    "location_id": location_map[
-                        member_data.get("location", "Rockhampton")
-                    ],
+                    "campus_id": campus_map[member_data.get("campus", "Rockhampton")],
                 }
             )
 
@@ -66,7 +66,7 @@ class MemberSeeder(BaseSeeder):
                 "linkedin": stmt.excluded.linkedin,
                 "avatar": stmt.excluded.avatar,
                 "bio": stmt.excluded.bio,
-                "location_id": stmt.excluded.location_id,
+                "campus_id": stmt.excluded.campus_id,
             },
         )
         self._session.execute(stmt)
