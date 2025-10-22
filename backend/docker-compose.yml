@@ -37,3 +37,29 @@ services:
       - pgadmin_data:/var/lib/pgadmin
     networks:
       - cqu
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: cqu.api
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    volumes:
+      - ./database:/opt/app/database
+      - ./src:/opt/app/src
+      - ./pyproject.toml:/opt/app/pyproject.toml
+      - ./poetry.lock:/opt/app/poetry.lock
+      - ./alembic.ini:/opt/app/alembic.ini
+      - ./cli.py:/opt/app/cli.py
+    ports:
+      - 8000:8000
+    command: poetry run uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - cqu
