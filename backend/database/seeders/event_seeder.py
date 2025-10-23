@@ -1,5 +1,5 @@
 import json
-from datetime import datetime
+from datetime import datetime, timezone
 
 from sqlalchemy.dialects.postgresql import insert
 
@@ -19,7 +19,11 @@ class EventSeeder(BaseSeeder):
             events_to_insert.append(
                 {
                     "title": event_data["title"],
-                    "event_datetime": datetime.fromisoformat(event_data["date"]),
+                    "event_datetime": datetime.fromisoformat(
+                        event_data["date"]
+                    )
+                    .astimezone(timezone.utc)
+                    .replace(tzinfo=None),
                     "description": event_data.get("description", None),
                     "thumbnail": event_data.get("thumbnail", None),
                     "is_online": event_data.get("is_online", False),
@@ -49,14 +53,18 @@ class EventSeeder(BaseSeeder):
 
         campus_events_to_insert = []
         for event_data in events_data:
-            event_dt = datetime.fromisoformat(event_data["date"])
+            event_dt = (
+                datetime.fromisoformat(event_data["date"])
+                .astimezone(timezone.utc)
+                .replace(tzinfo=None)
+            )
             event_key = (event_data["title"], event_dt)
             event_id = event_map.get(event_key)
 
             if not event_id:
                 continue
 
-            if "venue" in event_data:
+            if "venue" in event_data and isinstance(event_data["venue"], dict):
                 for campus_name, location in event_data["venue"].items():
                     campus_id = campus_map.get(campus_name)
                     if campus_id:

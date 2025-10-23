@@ -36,6 +36,7 @@ class Event(BaseModel):
     campuses: Mapped[list["Campus"]] = relationship(
         secondary=CampusEvent.__table__,
         back_populates="events",
+        viewonly=True,
     )
     campus_associations: Mapped[list["CampusEvent"]] = relationship(
         back_populates="event",
