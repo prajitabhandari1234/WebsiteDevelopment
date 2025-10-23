@@ -9,7 +9,9 @@ from .base_seeder import BaseSeeder
 
 class EventSeeder(BaseSeeder):
     def run(self):
-        with open(file = "database/seeders/fixtures/events.json", mode="r", encoding="utf-8") as f:
+        with open(
+            file="database/seeders/fixtures/events.json", mode="r", encoding="utf-8"
+        ) as f:
             events_data = json.load(f)
 
         events_to_insert = []

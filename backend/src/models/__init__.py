@@ -1,6 +1,7 @@
 from .base import Base
 
-# from .blog import Blog
+from .blog import Blog
+from .blog_tag import blog_tags
 from .campus import Campus
 from .campus_event import CampusEvent
 
@@ -12,11 +13,12 @@ from .project_category import ProjectCategory
 
 # from .rating import Rating
 from .role import Role
+from .tag import Tag
 
 
 __all__ = [
     "Base",
-    # "Blog",
+    "Blog",
     "Campus",
     "CampusEvent",
     # "Enrollment",
@@ -26,4 +28,6 @@ __all__ = [
     "ProjectCategory",
     # "Rating",
     "Role",
+    "Tag",
+    "blog_tags",
 ]
