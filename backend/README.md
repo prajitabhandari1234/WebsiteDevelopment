@@ -47,8 +47,25 @@ Use [docker-compose](https://docs.docker.com/compose/) to spin up docker-contain
 ```sh
 $ make build
 $ make up
+```
+
+To run migrations and seeds use a new terminal window and run the following
+```
 $ make migrate
 $ make seed
+```
+
+### Docker on Windows
+```sh
+$ docker compose build --no-cache
+$ docker compose up
+$ docker compose stop
+```
+
+To run migrations and seeds use a new terminal window and run the following
+```sh
+$ docker compose exec api poetry run alembic upgrade head
+$ docker compose exec api poetry run python cli.py
 ```
 
 ### API docs at http://localhost:8000/docs
