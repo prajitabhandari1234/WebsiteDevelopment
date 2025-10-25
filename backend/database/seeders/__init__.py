@@ -5,8 +5,8 @@ from .blog_seeder import BlogSeeder
 
 
 __all__ = [
-    # "ProjectSeeder",
-    # "MemberSeeder",
+    "ProjectSeeder",
+    "MemberSeeder",
     "EventSeeder",
-    # "BlogSeeder",
+    "BlogSeeder",
 ]
