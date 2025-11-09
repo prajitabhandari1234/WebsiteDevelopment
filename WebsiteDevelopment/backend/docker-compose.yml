@@ -1,0 +1,65 @@
+networks:
+  cqu:
+    driver: bridge
+
+volumes:
+  pgadmin_data:
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: cqu_db
+    environment:
+      - POSTGRES_USER=cqu_user
+      - POSTGRES_PASSWORD=cqu_password
+      - POSTGRES_DB=cqu_db
+    volumes:
+      - ./db_data:/var/lib/postgresql/data
+      - ./scripts:/docker-entrypoint-initdb.d
+    ports:
+      - 5430:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - cqu
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 8080:80
+    environment:
+       PGADMIN_DEFAULT_EMAIL: "testemail@gmail.com"
+       PGADMIN_DEFAULT_PASSWORD: "testuser123"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - cqu
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+      args:
+        - UID=${UID:-1000}
+        - GID=${GID:-1000}
+    container_name: cqu.api
+    depends_on:
+      - postgres
+    env_file:
+      - .env
+    volumes:
+      - ./database:/opt/app/database
+      - ./src:/opt/app/src
+      - ./pyproject.toml:/opt/app/pyproject.toml
+      - ./poetry.lock:/opt/app/poetry.lock
+      - ./alembic.ini:/opt/app/alembic.ini
+      - ./cli.py:/opt/app/cli.py
+    ports:
+      - 8000:8000
+    command: poetry run uvicorn src.main:app --host 0.0.0.0 --port 8000 --reload
+    networks:
+      - cqu

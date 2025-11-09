@@ -1,0 +1,28 @@
+[project]
+name = "cqu-backend"
+version = "0.0.0"
+description = "Backend APIs for CQU club site"
+authors = [
+    {name = "Prabeg Shakya",email = "shakyaprabeg@gmail.com"}
+]
+license = {text = "ISC"}
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi[standard] (>=0.118.0,<0.119.0)",
+    "sqlalchemy (>=2.0.43,<3.0.0)",
+    "pydantic (>=2.11.9,<3.0.0)",
+    "alembic (>=1.16.5,<2.0.0)",
+    "psycopg[binary] (>=3.2.10,<4.0.0)",
+    "pydantic-settings (>=2.11.0,<3.0.0)",
+    "typer (>=0.19.2,<0.20.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.9.0"
+
