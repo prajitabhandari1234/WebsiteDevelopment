@@ -30,16 +30,16 @@ This website allows students to explore events, apply for workshops, join the co
 Follow these steps to run this frontend locally 👇
 
 bash
-1️⃣ Clone the repository
+1️⃣ Clone the repository: 
 git clone https://github.com/prajitabhandari1234/WebsiteDevelopment.git
 
-2️⃣ Move into the project folder
+2️⃣ Move into the project folder: 
 cd WebsiteDevelopment
 
-3️⃣ Install dependencies
+3️⃣ Install dependencies: 
 npm install
 
-4️⃣ Start development server
+4️⃣ Start development server: 
 npm run dev
 
 Your app will open at:
