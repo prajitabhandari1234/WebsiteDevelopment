@@ -2,7 +2,6 @@
 
 A modern, full-stack web application built with **React.js + Vite** on the frontend and **FastAPI + PostgreSQL** on the backend, built to empower the student innovation community at CQUniversity. Students can explore events, apply for workshops, join the community, read the blog, and submit content — with real form submissions backed by a working API.
 
----
 
 ## 🚀 Features
 
@@ -15,7 +14,6 @@ A modern, full-stack web application built with **React.js + Vite** on the front
 - Component-based frontend architecture for scalability
 - REST API backend with database migrations and seed data
 
----
 
 ## 🛠 Tech Stack
 
@@ -41,7 +39,6 @@ A modern, full-stack web application built with **React.js + Vite** on the front
 | Mailgun (via httpx) | Email notifications on form submission |
 | Docker | Containerized backend + database |
 
----
 
 ## 📁 Project Structure
 
@@ -67,7 +64,6 @@ A modern, full-stack web application built with **React.js + Vite** on the front
 └── README.md
 ```
 
----
 
 ## 📦 Setup & Installation
 
@@ -132,7 +128,6 @@ The API will be available at:
 > docker-compose up
 > ```
 
----
 
 ## 🔮 Roadmap / Future Enhancements
 
@@ -140,8 +135,3 @@ The API will be available at:
 - Content moderation and notifications for admins
 - Expanded event categories and filtering
 
----
-
-## Author
-
-**Prajita Bhandari**
