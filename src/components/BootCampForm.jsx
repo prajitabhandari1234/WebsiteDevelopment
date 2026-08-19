@@ -5,6 +5,23 @@ export default function BootcampModal({ open, onClose, onSubmit }) {
 
   if (!open) return null;
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
+
+    const payload = {
+      name: formData.get("name") || "",
+      email: formData.get("email") || "",
+      phone: formData.get("phone") || "",
+      interest: formData.get("interest") || "",
+      other_interest: formData.get("other_interest") || "",
+    };
+
+    onSubmit?.(payload);
+    onClose();
+  };
+
   return (
     <div className="modal is-open" role="dialog" aria-modal="true">
       <div
@@ -15,23 +32,20 @@ export default function BootcampModal({ open, onClose, onSubmit }) {
       <div
         className="modal-panel"
         role="document"
-        aria-labelledby="bootcampModalTitle"
       >
-        <button className="modal-close" aria-label="Close" onClick={onClose}>
-          &times;
-        </button>
+        <header className="modal-header">
+          <h2>Apply for the Innovation Bootcamp</h2>
+          <button
+            type="button"
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close"
+          >
+            ×
+          </button>
+        </header>
 
-        <h3 id="bootcampModalTitle" className="modal-title">
-          Workshop Application
-        </h3>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit?.();
-            onClose();
-          }}
-        >
+        <form className="bootcamp-form" onSubmit={handleSubmit}>
           <div className="form-row">
             <label htmlFor="bcName">
               Full Name <span className="req">*</span>

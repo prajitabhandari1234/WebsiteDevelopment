@@ -1,6 +1,7 @@
 // src/components/JoinForm.jsx
 import { useEffect, useMemo, useState } from "react";
 import "./JoinForm.css";
+import { api } from "../apiClient"; 
 
 /**
  * JoinForm
@@ -79,71 +80,73 @@ export default function JoinForm() {
     }
   };
 
-  // Handle form submission
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setError("");
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setError("");
 
-    // Client-side validation
-    const errs = [];
-    if (!name || name.trim().length < 2) errs.push("Please enter a valid name.");
-    if (!email || !validateEmail(email)) errs.push("Please enter a valid email address.");
-    if (!major) errs.push("Please select your major.");
-    if (!location) errs.push("Please select your location.");
+  // Client-side validation
+  const errs = [];
+  if (!name || name.trim().length < 2) errs.push("Please enter a valid name.");
+  if (!email || !validateEmail(email)) errs.push("Please enter a valid email address.");
+  if (!major) errs.push("Please select your major.");
+  if (!location) errs.push("Please select your location.");
 
-    // Honeypot triggered
-    if (nickname.trim()) {
-      errs.push("Submission flagged. Please try again.");
-    }
+  // Honeypot triggered
+  if (nickname.trim()) {
+    errs.push("Submission flagged. Please try again.");
+  }
 
-    // Duplicate prevention
-    const normalizedEmail = (email || "").trim().toLowerCase();
-    const already = getSavedEmails().includes(normalizedEmail);
-    if (already) {
-      errs.push("This email has already submitted the form. We’ll be in touch soon!");
-    }
+  // Duplicate prevention
+  const normalizedEmail = (email || "").trim().toLowerCase();
+  const already = getSavedEmails().includes(normalizedEmail);
+  if (already) {
+    errs.push("This email has already submitted the form. We’ll be in touch soon!");
+  }
 
-    // Stop submission if errors
-    if (errs.length) {
-      setError(errs.join(" "));
-      return;
-    }
+  // Stop submission if errors
+  if (errs.length) {
+    setError(errs.join(" "));
+    return;
+  }
 
-    // Compose payload (would send to API)
-    const payload = {
-      name,
-      email: normalizedEmail,
-      major,
-      location,
-      interests,
-      about,
-    };
-    console.log("Form data:", payload);
-
-    // Simulate network submission
-    try {
-      setLoading(true);
-      await new Promise((r) => setTimeout(r, 1200)); // simulate delay
-      saveEmail(normalizedEmail);
-
-      // Show success and reset form
-      setSuccess(true);
-      setName("");
-      setEmail("");
-      setMajor("");
-      setLocation("");
-      setInterests([]);
-      setAbout("");
-      setNickname("");
-
-      setTimeout(() => setSuccess(false), 5000);
-    } catch (err) {
-      console.error(err);
-      setError("Something went wrong. Please try again.");
-    } finally {
-      setLoading(false);
-    }
+  // Compose payload for backend API
+  const payload = {
+    name,
+    email: normalizedEmail,
+    major,
+    location,
+    interests,
+    about,
   };
+
+  try {
+    setLoading(true);
+
+    // --- CALL BACKEND ---
+    await api.post("/forms/join", payload);
+
+    // Save email locally so we can block duplicates on frontend
+    saveEmail(normalizedEmail);
+
+    // Show success and reset form
+    setSuccess(true);
+    setName("");
+    setEmail("");
+    setMajor("");
+    setLocation("");
+    setInterests([]);
+    setAbout("");
+    setNickname("");
+
+    setTimeout(() => setSuccess(false), 5000);
+  } catch (err) {
+    console.error(err);
+    setError("Something went wrong. Please try again.");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <section className="join-form-section" id="join">

@@ -1,9 +1,11 @@
 // src/pages/Blog.jsx
+
 import { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { POSTS } from "../data/posts";
 import "../Styles/Join.css";
 import "../Styles/Blog.css";
+import { api } from "../apiClient";
 
 /* ---------- LocalStorage for user-submitted posts ---------- */
 const USER_POSTS_KEY = "cqu_club_user_posts_v1";
@@ -16,10 +18,12 @@ const loadUserPosts = () => {
     return Array.isArray(v) ? v : [];
   } catch { return []; }
 };
+
 const saveUserPosts = (arr) => {
   if (!safeWindow) return;
   try { safeWindow.localStorage.setItem(USER_POSTS_KEY, JSON.stringify(arr)); } catch {}
 };
+
 const uuid = () =>
   (safeWindow?.crypto?.randomUUID?.() || `${Date.now()}-${Math.random()}`).toString();
 
@@ -52,7 +56,7 @@ export default function Blog() {
     });
   }, [q, cat, allPosts]);
 
-  const onImgError = (e) => { e.currentTarget.src = "/images/logo.jpg"; e.currentTarget.alt = "Club logo"; };
+  const onImgError = (e) => { e.currentTarget.src = "/images/logo.jpg"; };
 
   /* — Publish Form — */
   const [title, setTitle] = useState("");
@@ -64,6 +68,7 @@ export default function Blog() {
   const [submitting, setSubmitting] = useState(false);
   const [notice, setNotice] = useState("");
 
+  /** NEW 📌 */
   const publish = async (e) => {
     e.preventDefault();
     setNotice("");
@@ -73,26 +78,51 @@ export default function Blog() {
       return;
     }
 
-    const newPost = {
-      id: `user-${uuid()}`,
+    const payload = {
       title: title.trim(),
       author: author.trim(),
-      category: category.trim() || "Announcements",
-      cover: cover.trim() || "/images/logo.jpg",
-      excerpt: summary.trim() || (body.trim().slice(0, 120) + (body.trim().length > 120 ? "…" : "")),
+      category: category.trim(),
+      cover: cover.trim() || "",
+      summary: summary.trim() || "",
       body: body.trim(),
-      date: new Date().toISOString(),
     };
 
     setSubmitting(true);
-    await new Promise(r => setTimeout(r, 250));
-    setUserPosts(prev => [newPost, ...prev]);
 
-    setTitle(""); setAuthor(""); setCategory("Announcements");
-    setCover(""); setSummary(""); setBody("");
+    try {
+      // Save to backend DB + send email ✔
+      await api.post("/forms/blog-submission", payload);
+
+      // Also save locally to show immediately ✔
+      const newPost = {
+        id: `user-${uuid()}`,
+        ...payload,
+        excerpt:
+          summary.trim() ||
+          (body.trim().slice(0, 120) +
+            (body.trim().length > 120 ? "…" : "")),
+        date: new Date().toISOString(),
+      };
+
+      setUserPosts((prev) => [newPost, ...prev]);
+
+      // Reset form
+      setTitle("");
+      setAuthor("");
+      setCategory("Announcements");
+      setCover("");
+      setSummary("");
+      setBody("");
+
+      setNotice("✅ Published! Your post has been submitted.");
+      setTimeout(() => setNotice(""), 3000);
+
+    } catch (err) {
+      console.error(err);
+      setNotice("❌ Error submitting your post. Please try again later.");
+    }
+
     setSubmitting(false);
-    setNotice("✅ Published! Your post now appears above.");
-    setTimeout(()=>setNotice(""), 2500);
   };
 
   return (
@@ -103,7 +133,9 @@ export default function Blog() {
           <div className="cta-content">
             <span className="hero-badge">Official Updates</span>
             <h1 className="cta-section-title">Blog & News</h1>
-            <p className="cta-section-subtitle">Announcements, projects, and event highlights from I&amp;I.</p>
+            <p className="cta-section-subtitle">
+              Announcements, projects, and event highlights from I&I.
+            </p>
           </div>
         </div>
       </section>
@@ -111,9 +143,6 @@ export default function Blog() {
       {/* Controls */}
       <div className="container blog-controls">
         <div className="search-wrap">
-          <svg className="search-icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19l-4.99-5zM9.5 14A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14z"/>
-          </svg>
           <input
             className="blog-search"
             type="search"
@@ -158,30 +187,23 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Publish — outer frame + inner card */}
+      {/* Publish Form */}
       <section className="publish-section">
         <div className="container">
           <div className="publish-shell">
             <h2 className="publish-title">
               <span className="gradient-text">Ready to Publish?</span>
             </h2>
-            <p className="publish-subtitle">
-              Complete the form below to share your blog post with our community.
-              Once submitted, it will appear in the list above for everyone to explore.
-            </p>
 
             <div className="publish-card">
-              {notice && <div className="alert success" role="status">{notice}</div>}
+              {notice && <div className="alert success">{notice}</div>}
 
               <form onSubmit={publish} className="publish-form" noValidate>
-                {/* Row 1 */}
                 <div className="row-2">
                   <div className="field">
-                    <label htmlFor="bTitle">Title *</label>
+                    <label>Title *</label>
                     <input
-                      id="bTitle"
                       type="text"
-                      placeholder="Enter your blog title"
                       value={title}
                       onChange={e=>setTitle(e.target.value)}
                       required
@@ -189,11 +211,9 @@ export default function Blog() {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="bAuthor">Author *</label>
+                    <label>Author *</label>
                     <input
-                      id="bAuthor"
                       type="text"
-                      placeholder="Your full name"
                       value={author}
                       onChange={e=>setAuthor(e.target.value)}
                       required
@@ -201,12 +221,10 @@ export default function Blog() {
                   </div>
                 </div>
 
-                {/* Row 2 */}
                 <div className="row-2">
                   <div className="field">
-                    <label htmlFor="bCat">Category *</label>
+                    <label>Category *</label>
                     <select
-                      id="bCat"
                       value={category}
                       onChange={e=>setCategory(e.target.value)}
                       required
@@ -220,11 +238,9 @@ export default function Blog() {
                   </div>
 
                   <div className="field">
-                    <label htmlFor="bCover">Cover Image URL (optional)</label>
+                    <label>Cover URL</label>
                     <input
-                      id="bCover"
                       type="url"
-                      placeholder="https://…/cover.jpg"
                       value={cover}
                       onChange={e=>setCover(e.target.value)}
                     />
@@ -232,35 +248,28 @@ export default function Blog() {
                 </div>
 
                 <div className="field">
-                  <label htmlFor="bSummary">Short Summary (optional)</label>
+                  <label>Short Summary</label>
                   <textarea
-                    id="bSummary"
                     rows={3}
-                    maxLength={240}
-                    placeholder="One or two lines describing your post."
                     value={summary}
                     onChange={e=>setSummary(e.target.value)}
                   />
-                  <div className="char-count">{summary.length}/240</div>
                 </div>
 
                 <div className="field">
-                  <label htmlFor="bBody">Full Post *</label>
+                  <label>Full Post *</label>
                   <textarea
-                    id="bBody"
                     rows={8}
-                    maxLength={10000}
-                    placeholder="Write your full content here…"
                     value={body}
                     onChange={e=>setBody(e.target.value)}
                     required
                   />
-                  <div className="char-count">{body.length}/10000</div>
                 </div>
 
                 <button type="submit" className="btn publish-btn" disabled={submitting}>
                   {submitting ? "Publishing…" : "Publish Blog"}
                 </button>
+
               </form>
             </div>
           </div>
